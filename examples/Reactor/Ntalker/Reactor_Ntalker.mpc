@@ -1,0 +1,6 @@
+// -*- MPC -*-
+// Reactor_Ntalker.mpc,v 1.1.1.1 2004/09/23 18:27:48 shuston Exp
+
+project : aceexe {
+  exename = ntalker
+}

@@ -1,0 +1,17 @@
+// -*- MPC -*-
+// Reactor_Multicast.mpc,v 1.1.1.1 2003/12/23 20:23:21 shuston Exp
+
+project(*client) : aceexe {
+  exename = client
+  Source_Files {
+    client.cpp
+    Log_Wrapper.cpp
+  }
+}
+project(*server) : aceexe {
+  exename = server
+  Source_Files {
+    server.cpp
+    Log_Wrapper.cpp
+  }
+}

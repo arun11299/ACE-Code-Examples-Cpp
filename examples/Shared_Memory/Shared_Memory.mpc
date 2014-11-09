@@ -1,0 +1,17 @@
+// -*- MPC -*-
+// Shared_Memory.mpc,v 1.1.1.1 2005/11/26 03:13:13 shuston Exp
+
+project(*MM) : aceexe {
+  avoids += ace_for_tao
+  exename = testmm
+  Source_Files {
+    test_MM.cpp
+  }
+}
+project(*SV) : aceexe {
+  avoids += ace_for_tao
+  exename = testsv
+  Source_Files {
+    test_SV.cpp
+  }
+}

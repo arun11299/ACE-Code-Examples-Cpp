@@ -1,0 +1,6 @@
+// -*- MPC -*-
+// Logger_client.mpc,v 1.1.1.1 2004/11/18 13:13:25 shuston Exp
+
+project : aceexe {
+  exename = logging_app
+}

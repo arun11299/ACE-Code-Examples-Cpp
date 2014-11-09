@@ -1,0 +1,82 @@
+# Makefile for building the main exe with Borland C++ Make
+
+NAME = main
+
+NO_FULL_PATH=1
+
+OBJFILES = \
+	$(OBJDIR)\Command_Processor.$(OBJ_EXT) \
+	$(OBJDIR)\HTTP_URL.$(OBJ_EXT) \
+	$(OBJDIR)\Iterators.$(OBJ_EXT) \
+	$(OBJDIR)\main.$(OBJ_EXT) \
+	$(OBJDIR)\Mem_Map_Stream.$(OBJ_EXT) \
+	$(OBJDIR)\Options.$(OBJ_EXT) \
+	$(OBJDIR)\URL.$(OBJ_EXT) \
+	$(OBJDIR)\URL_Addr.$(OBJ_EXT) \
+	$(OBJDIR)\URL_Status.$(OBJ_EXT) \
+	$(OBJDIR)\URL_Visitor.$(OBJ_EXT) \
+	$(OBJDIR)\URL_Visitor_Factory.$(OBJ_EXT) \
+	$(OBJDIR)\Web_Crawler.$(OBJ_EXT)
+
+LFLAGS = \
+        -L"." \
+        -j"."  \
+        -L"..\..\lib" \
+        -j"..\..\lib" 
+
+LIBFILES = \
+	ACE$(LIB_DECORATOR).lib \
+	$(DUMMY_VALUE_NOT_ENDING_IN_BACKSLASH)
+
+!ifdef STATIC
+LIB_FLAGS = \
+        -DACE_AS_STATIC_LIBS
+!else
+!endif
+
+CFLAGS = \
+	-I"..\.." \
+	$(LIB_FLAGS) \
+	$(DLL_FLAGS)
+
+CPPDIR = .
+CDIR   = .
+
+INCDIR_NAME = stage-24190\ACE_wrappers\examples\Web_Crawler
+
+#
+# Override defaults in outputdir.bor
+#
+INCLUDES_INSTALL=1
+
+BASE_BINDIR = .
+
+!include <$(ACE_ROOT)\include\makeinclude\build_exe.bor>
+
+includes_install: $(INCLUDES)
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Command_Processor.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Command_Processor.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y HTTP_URL.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\HTTP_URL.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Iterators.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Iterators.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Mem_Map_Stream.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Mem_Map_Stream.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Options.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Options.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y URL.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\URL.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y URL_Addr.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\URL_Addr.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y URL_Status.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\URL_Status.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y URL_Visitor.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\URL_Visitor.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y URL_Visitor_Factory.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\URL_Visitor_Factory.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Web_Crawler.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Web_Crawler.h 1> NUL
+
+realclean:
+        @-rem
+

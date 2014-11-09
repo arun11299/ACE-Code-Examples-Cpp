@@ -1,0 +1,10 @@
+// -*- MPC -*-
+// Web_Crawler.mpc,v 1.1.1.1 2006/09/29 10:01:56 shuston Exp
+
+project : aceexe {
+  avoids += ace_for_tao
+  exename = main
+  specific(borland, bmake) {
+    avoids += uses_wchar
+  }
+}

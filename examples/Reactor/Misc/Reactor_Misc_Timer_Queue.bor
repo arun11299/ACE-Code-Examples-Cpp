@@ -1,0 +1,48 @@
+# Makefile for building the timer_queue exe with Borland C++ Make
+
+NAME = timer_queue
+
+NO_FULL_PATH=1
+
+OBJFILES = \
+	$(OBJDIR)\test_timer_queue.$(OBJ_EXT)
+
+LFLAGS = \
+        -L"." \
+        -j"."  \
+        -L"..\..\..\lib" \
+        -j"..\..\..\lib" 
+
+LIBFILES = \
+	ACE$(LIB_DECORATOR).lib \
+	$(DUMMY_VALUE_NOT_ENDING_IN_BACKSLASH)
+
+!ifdef STATIC
+LIB_FLAGS = \
+        -DACE_AS_STATIC_LIBS
+!else
+!endif
+
+CFLAGS = \
+	-I"..\..\.." \
+	$(LIB_FLAGS) \
+	$(DLL_FLAGS)
+
+CPPDIR = .
+CDIR   = .
+
+#
+# Override defaults in outputdir.bor
+#
+INCLUDES_INSTALL=1
+
+BASE_BINDIR = .
+
+!include <$(ACE_ROOT)\include\makeinclude\build_exe.bor>
+
+includes_install:
+	@echo Nothing to install.
+
+realclean:
+        @-rem
+

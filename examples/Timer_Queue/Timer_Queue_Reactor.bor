@@ -1,0 +1,58 @@
+# Makefile for building the Reactor_Timer_Queue_Test exe with Borland C++ Make
+
+NAME = Reactor_Timer_Queue_Test
+
+NO_FULL_PATH=1
+
+OBJFILES = \
+	$(OBJDIR)\main_reactor.$(OBJ_EXT)
+
+LFLAGS = \
+        -L"." \
+        -j"."  \
+        -L"..\..\lib" \
+        -j"..\..\lib" 
+
+LIBFILES = \
+	ACE$(LIB_DECORATOR).lib \
+	tqtd$(LIB_DECORATOR).lib \
+	$(DUMMY_VALUE_NOT_ENDING_IN_BACKSLASH)
+
+!ifdef STATIC
+LIB_FLAGS = \
+        -DACE_AS_STATIC_LIBS
+!else
+!endif
+
+CFLAGS = \
+	-I"..\.." \
+	$(LIB_FLAGS) \
+	$(DLL_FLAGS)
+
+CPPDIR = .
+CDIR   = .
+
+INCDIR_NAME = stage-24190\ACE_wrappers\examples\Timer_Queue
+
+#
+# Override defaults in outputdir.bor
+#
+INCLUDES_INSTALL=1
+
+BASE_BINDIR = .
+
+!include <$(ACE_ROOT)\include\makeinclude\build_exe.bor>
+
+includes_install: $(INCLUDES)
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Async_Timer_Queue_Test.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Async_Timer_Queue_Test.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Driver.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Driver.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Reactor_Timer_Queue_Test.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Reactor_Timer_Queue_Test.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Thread_Timer_Queue_Test.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Thread_Timer_Queue_Test.h 1> NUL
+
+realclean:
+        @-rem
+

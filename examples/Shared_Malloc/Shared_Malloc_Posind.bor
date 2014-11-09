@@ -1,0 +1,57 @@
+# Makefile for building the posind exe with Borland C++ Make
+
+NAME = posind
+
+NO_FULL_PATH=1
+
+OBJFILES = \
+	$(OBJDIR)\Malloc.$(OBJ_EXT) \
+	$(OBJDIR)\Options.$(OBJ_EXT) \
+	$(OBJDIR)\test_position_independent_malloc.$(OBJ_EXT)
+
+LFLAGS = \
+        -L"." \
+        -j"."  \
+        -L"..\..\lib" \
+        -j"..\..\lib" 
+
+LIBFILES = \
+	ACE$(LIB_DECORATOR).lib \
+	$(DUMMY_VALUE_NOT_ENDING_IN_BACKSLASH)
+
+!ifdef STATIC
+LIB_FLAGS = \
+        -DACE_AS_STATIC_LIBS
+!else
+!endif
+
+CFLAGS = \
+	-I"..\.." \
+	$(LIB_FLAGS) \
+	$(DLL_FLAGS)
+
+CPPDIR = .
+CDIR   = .
+
+INCDIR_NAME = stage-24190\ACE_wrappers\examples\Shared_Malloc
+
+#
+# Override defaults in outputdir.bor
+#
+INCLUDES_INSTALL=1
+
+BASE_BINDIR = .
+
+!include <$(ACE_ROOT)\include\makeinclude\build_exe.bor>
+
+includes_install: $(INCLUDES)
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Malloc.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Malloc.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Options.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Options.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y test_position_independent_malloc.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\test_position_independent_malloc.h 1> NUL
+
+realclean:
+        @-rem
+

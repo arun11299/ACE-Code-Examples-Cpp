@@ -1,0 +1,37 @@
+// -*- MPC -*-
+// Shared_Malloc.mpc,v 1.1.1.1 2005/11/26 03:13:13 shuston Exp
+
+project : aceexe {
+  avoids += ace_for_tao
+  exename = malloc
+  Source_Files {
+    Malloc.cpp
+    Options.cpp
+    test_malloc.cpp
+  }
+}
+project(*multiple) : aceexe {
+  avoids += ace_for_tao
+  exename = multiple
+  Source_Files {
+    Malloc.cpp
+    Options.cpp
+    test_multiple_mallocs.cpp
+  }
+}
+project(*persistence) : aceexe {
+  avoids += ace_for_tao
+  exename = persistence
+  Source_Files {
+    test_persistence.cpp
+  }
+}
+project(*posind) : aceexe {
+  avoids += ace_for_tao
+  exename = posind
+  Source_Files {
+    Malloc.cpp
+    Options.cpp
+    test_position_independent_malloc.cpp
+  }
+}

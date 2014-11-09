@@ -1,0 +1,67 @@
+# Makefile for building the gadget exe with Borland C++ Make
+
+NAME = gadget
+
+NO_FULL_PATH=1
+
+OBJFILES = \
+	$(OBJDIR)\Gadget.$(OBJ_EXT) \
+	$(OBJDIR)\Gadget_Factory.$(OBJ_EXT) \
+	$(OBJDIR)\Gadget_Impl.$(OBJ_EXT) \
+	$(OBJDIR)\Gadget_Part.$(OBJ_EXT) \
+	$(OBJDIR)\Gadget_Part_Factory.$(OBJ_EXT) \
+	$(OBJDIR)\Gadget_Part_Impl.$(OBJ_EXT) \
+	$(OBJDIR)\gadget_test.$(OBJ_EXT)
+
+LFLAGS = \
+        -L"." \
+        -j"."  \
+        -L"..\..\lib" \
+        -j"..\..\lib" 
+
+LIBFILES = \
+	ACE$(LIB_DECORATOR).lib \
+	$(DUMMY_VALUE_NOT_ENDING_IN_BACKSLASH)
+
+!ifdef STATIC
+LIB_FLAGS = \
+        -DACE_AS_STATIC_LIBS
+!else
+!endif
+
+CFLAGS = \
+	-I"..\.." \
+	$(LIB_FLAGS) \
+	$(DLL_FLAGS)
+
+CPPDIR = .
+CDIR   = .
+
+INCDIR_NAME = stage-24190\ACE_wrappers\examples\Smart_Pointers
+
+#
+# Override defaults in outputdir.bor
+#
+INCLUDES_INSTALL=1
+
+BASE_BINDIR = .
+
+!include <$(ACE_ROOT)\include\makeinclude\build_exe.bor>
+
+includes_install: $(INCLUDES)
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Gadget.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Gadget.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Gadget_Factory.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Gadget_Factory.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Gadget_Impl.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Gadget_Impl.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Gadget_Part.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Gadget_Part.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Gadget_Part_Factory.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Gadget_Part_Factory.h 1> NUL
+	-@if not exist $(INSTALL_DIR)\include\$(INCDIR_NAME)\. mkdir $(INSTALL_DIR)\include\$(INCDIR_NAME)\.
+	-&copy /Y Gadget_Part_Impl.h $(INSTALL_DIR)\include\$(INCDIR_NAME)\Gadget_Part_Impl.h 1> NUL
+
+realclean:
+        @-rem
+
